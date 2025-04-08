@@ -2,7 +2,6 @@
 
 # Ignore git directory.
 /.git/
-/.gitignore
 
 # Ignore bundler config.
 /.bundle
@@ -15,7 +14,7 @@
 /config/master.key
 /config/credentials/*.key
 
-/config/database.yml
+# /config/database.yml
 
 # Ignore all logfiles and tempfiles.
 /log/*

@@ -1,0 +1,26 @@
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_DB=schools_backend_development
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+     - postgres_volume:/var/lib/postgresql/data
+  web:
+    build: .
+    environment:
+      - RAILS_ENV=${RAILS_ENV}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+volumes:
+  postgres_volume:

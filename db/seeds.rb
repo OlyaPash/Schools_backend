@@ -1,20 +1,20 @@
 # Student.destroy_all
-# Classroom.destroy_all
-# School.destroy_all
+Classroom.destroy_all
+School.destroy_all
 
 
-# school = School.create!
+school = School.create!
 
-# classroom1б = Classroom.create!(number: 1, letter: "Б", school_id: school.id )
-# classroom5a = Classroom.create!(number: 5, letter: "А", school_id: school.id)
+classroom1б = Classroom.create!(number: 1, letter: "Б", school_id: school.id )
+# # classroom5a = Classroom.create!(number: 5, letter: "А", school_id: school.id)
 
-# Student.create!(
-#   first_name: "Вячеслав",
-#   last_name: "Абдурахмангаджиевич",
-#   surname: "Мухобойников-Сыркин",
-#   classroom_id: classroom1б.id,
-#   school_id: school.id
-# )
+Student.create!(
+  first_name: "Вячеслав",
+  last_name: "Абдурахмангаджиевич",
+  surname: "Мухобойников-Сыркин",
+  classroom_id: classroom1б.id,
+  school_id: school.id
+)
 
 # Student.create!(
 #   first_name: "Милана",
