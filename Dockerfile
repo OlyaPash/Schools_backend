@@ -17,7 +17,7 @@ RUN apt-get update -qq && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Set production environment
-ENV RAILS_ENV="production" \
+ENV RAILS_ENV="development" \
     BUNDLE_DEPLOYMENT="1" \
     BUNDLE_PATH="/usr/local/bundle" \
     BUNDLE_WITHOUT="development"
@@ -49,6 +49,7 @@ RUN bundle exec bootsnap precompile app/ lib/
 FROM base
 
 # Copy built artifacts: gems, application
+# COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
 COPY --from=build /rails /rails
 

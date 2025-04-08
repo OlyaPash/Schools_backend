@@ -5,14 +5,14 @@ RSpec.describe "Students", type: :request do
   let(:classroom) { create(:classroom, school_id: school.id) }
 
   describe "GET /schools/:school_id/classes/:class_id/students" do
-    # let(:students) { create_list(:student, 2, school_id: school.id, classroom_id: classroom.id) }
+    let(:students) { create_list(:student, 2, school_id: school.id, classroom_id: classroom.id) }
 
     it "returns http success" do
       headers = { "ACCEPT" => "application/json" }
       get school_classroom_students_path(school_id: school.id, classroom_id: classroom.id)
 
       expect(response.content_type).to eq("application/json; charset=utf-8")
-      expect(response).to have_http_status(:success)
+      expect(response).to have_http_status(:ok)
     end
   end
 
@@ -34,9 +34,16 @@ RSpec.describe "Students", type: :request do
 
   describe "DELETE #destroy" do
     let!(:student) { create(:student) }
+    let(:headers) {{'x-auth-token': Digest::SHA256.hexdigest("#{student.id}" + "SecretToken")}}
 
-    it "returns http success" do
+    it "returns unauthorized" do
       delete "/students/#{student.id}"
+
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    it "returns delete status ok" do
+      delete "/students/#{student.id}", headers: headers
 
       expect(response).to have_http_status(:ok)
     end
